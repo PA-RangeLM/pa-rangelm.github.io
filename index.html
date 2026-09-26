@@ -3,47 +3,119 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Anonymous project page for PA-RangeLM.">
-  <title>PA-RangeLM</title>
-  <style>
-    :root {
-      color-scheme: light;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #172033;
-      background: #f6f8fb;
-    }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-    }
-    main {
-      width: min(760px, calc(100% - 48px));
-      padding: 64px 36px;
-      text-align: center;
-      background: #fff;
-      border: 1px solid #e4e9f1;
-      border-radius: 18px;
-      box-shadow: 0 18px 50px rgba(35, 55, 85, 0.08);
-    }
-    h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2rem, 6vw, 4rem);
-      letter-spacing: -0.04em;
-    }
-    p {
-      margin: 0;
-      color: #5c667a;
-      font-size: 1.1rem;
-      line-height: 1.7;
-    }
-  </style>
+  <meta name="description" content="PA-RangeLM: prototype-guided differentiable range optimization for rotation-robust point cloud completion.">
+  <meta name="theme-color" content="#082f35">
+  <title>PA-RangeLM | Rotation-Robust Point Cloud Completion</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="site.js"></script>
 </head>
 <body>
-  <main>
-    <h1>PA-RangeLM</h1>
-    <p>Anonymous project page. Additional materials will be released soon.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" aria-label="Primary navigation">
+    <div class="nav-shell">
+      <a class="wordmark" href="#top" aria-label="PA-RangeLM home">
+        <span class="wordmark-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>PA-RangeLM</span>
+      </a>
+      <nav><a href="#idea">Idea</a><a href="#architecture">Architecture</a><a href="#results">Results</a><a href="#resources">Resources</a></nav>
+      <a class="nav-cta" href="assets/downloads/pa-rangelm-anonymous-code.zip" download>Code <span aria-hidden="true">↓</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div><div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+      <div class="shell hero-copy reveal">
+        <p class="eyebrow"><span></span> Rotation-Robust Point Cloud Completion</p>
+        <h1><span>PA</span>-RangeLM</h1>
+        <p class="paper-title">Prototype-Guided Differentiable Range Optimization for Rotation-Robust Geometric Reconstruction</p>
+        <p class="hero-insight">Learn completion in range space, then recover Cartesian geometry directly in the observed pose.</p>
+        <p class="hero-detail">A training-only prototype branch supplies complete-shape guidance, while uncertainty-aware range correction and differentiable coordinate recovery remove the need for a separate pose canonicalizer.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="assets/downloads/pa-rangelm-anonymous-code.zip" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9 4 12l4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>Download code</a>
+          <button class="button button-ghost checkpoint-trigger" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"/></svg>Download checkpoint</button>
+        </div>
+      </div>
+      <div class="shell hero-visual reveal">
+        <div class="visual-toolbar"><div><span class="live-dot" aria-hidden="true"></span><strong>Completion in motion</strong></div><span>Input · Ground truth · Baseline · Ours</span></div>
+        <img src="assets/visuals/pcn-rotation.gif" alt="Animated point-cloud completion comparisons under changing three-dimensional rotations.">
+        <div class="visual-caption"><span>Random SO(3) rotations</span><span>Observed-frame reconstruction</span><span>No pose canonicalization</span></div>
+      </div>
+    </section>
+
+    <section class="metrics-band" aria-label="Headline results">
+      <div class="shell metrics-grid">
+        <article class="metric reveal"><p class="metric-number">10.20</p><p class="metric-label">CD-L1 <span>×10<sup>3</sup> ↓</span></p><p class="metric-note">Rotated PCN full test split</p></article>
+        <article class="metric reveal"><p class="metric-number">4.92<span>×</span></p><p class="metric-label">Faster <span>end-to-end</span></p><p class="metric-note">2.628 s → 0.534 s per sample</p></article>
+        <article class="metric reveal"><p class="metric-number">7.4<span>%</span></p><p class="metric-label">Lower error <span>vs. latest</span></p><p class="metric-note">11.01 → 10.20 CD-L1</p></article>
+        <article class="metric reveal"><p class="metric-number">27.5<span>%</span></p><p class="metric-label">Lower error <span>vs. earlier</span></p><p class="metric-note">14.07 → 10.20 CD-L1</p></article>
+      </div>
+    </section>
+
+    <section class="comparison-strip">
+      <div class="shell comparison-grid reveal">
+        <div class="comparison-intro"><p class="section-kicker">A controlled comparison</p><h2>Stronger geometry, same test protocol.</h2></div>
+        <div class="baseline-pair">
+          <article><div class="baseline-meta"><span class="tag tag-latest">Latest baseline</span><span>CVPR 2025</span></div><p><strong>ESCAPE-Reprod.</strong><span>11.01</span></p><div class="bar"><i style="--bar: 92%"></i></div></article>
+          <article><div class="baseline-meta"><span class="tag">PA-RangeLM</span><span>Ours</span></div><p><strong>Observed-frame recovery</strong><span>10.20</span></p><div class="bar ours"><i style="--bar: 68%"></i></div></article>
+        </div>
+        <div class="early-callout"><span>Earlier baseline · ECCV 2022</span><p><strong>SeedFormer</strong> 14.07 <b>→</b> <strong>Ours</strong> 10.20</p><small>27.5% lower CD-L1; lower is better.</small></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="idea">
+      <div class="section-heading reveal"><p class="section-kicker">The core idea</p><h2>Complete in distance space.<br>Recover in Cartesian space.</h2><p>The model separates representation learning from geometric recovery, so full-shape cues improve the predictor without adding an inference-time branch.</p></div>
+      <div class="idea-grid">
+        <article class="idea-card card-one reveal"><div class="card-index">01</div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="18" cy="20" r="4"/><circle cx="31" cy="15" r="4"/><circle cx="44" cy="23" r="4"/><circle cx="23" cy="38" r="4"/><circle cx="40" cy="43" r="4"/><path d="m21 19 6-2m7 0 7 4M20 24l2 10m5 3 9 4m7-14-2 12M27 19l-3 15"/></svg></div><h3>Prototype-guided structure</h3><p>A training-only auxiliary branch uses sparse complete-shape targets to regularize the shared representation. It is removed after training, leaving inference unchanged.</p><span class="card-foot">Training signal, zero deployment cost</span></article>
+        <article class="idea-card card-two reveal"><div class="card-index">02</div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M9 41c8-18 14 8 23-10s14 5 23-11"/><path d="M9 49h46M14 14v35"/><circle cx="32" cy="31" r="5"/></svg></div><h3>Bounded range correction</h3><p>RangeLM predicts small, bounded adjustments to base distances instead of unconstrained coordinates. A learned uncertainty head assigns relative precision to each anchor constraint.</p><span class="card-foot">Correct what matters, weight what is reliable</span></article>
+        <article class="idea-card card-three reveal"><div class="card-index">03</div><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="6"/><circle cx="14" cy="16" r="4"/><circle cx="50" cy="14" r="4"/><circle cx="53" cy="47" r="4"/><path d="m18 19 10 9m9 0 10-11m-9 20 11 8M9 52l19-15"/><path d="m8 44 1 8 8-1"/></svg></div><h3>Differentiable recovery</h3><p>A vectorized Levenberg–Marquardt solver maps corrected ranges back to XYZ. Gradients through the final iterations align distance prediction with the reconstruction objective.</p><span class="card-foot">Observed pose in, observed pose out</span></article>
+      </div>
+    </section>
+
+    <section class="section architecture-section" id="architecture">
+      <div class="shell">
+        <div class="section-heading compact reveal"><p class="section-kicker">System design</p><h2>One backbone, two focused stages.</h2><p>Stage I learns a shape-aware range representation. Stage II freezes that representation and trains bounded correction, uncertainty weighting, and dense coordinate recovery.</p></div>
+        <figure class="architecture-figure reveal"><div class="figure-topline"><span>PA-RangeLM architecture</span><span>Training → deployment</span></div><img src="assets/visuals/architecture.png" alt="Two-stage PA-RangeLM architecture showing prototype-assisted distance learning followed by uncertainty-aware geometric refinement."><figcaption><span><b>Stage I</b> learns the shared encoder, decoder, and prototype-guided range representation.</span><span><b>Stage II</b> refines base ranges and recovers XYZ with uncertainty-weighted differentiable optimization.</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section shell" id="results">
+      <div class="section-heading reveal"><p class="section-kicker">Quantitative results</p><h2>Consistent gains across all eight categories.</h2></div>
+      <div class="results-layout reveal">
+        <aside class="results-aside"><span class="aside-number">8 / 8</span><h3>Lower category error</h3><p>All methods use the same random-rotation evaluation split. Conventional baselines use pose canonicalization; the final three columns operate directly on observed poses.</p><dl><div><dt>Protocol</dt><dd>Random SO(3)</dd></div><div><dt>Test samples</dt><dd>1,200</dd></div><div><dt>Metric</dt><dd>CD-L1 ×10<sup>3</sup> ↓</dd></div></dl></aside>
+        <div class="table-card">
+          <div class="table-title"><div><span class="table-chip">PCN</span><strong>Completion under random rotations</strong></div><span>Lower is better</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th>Category</th><th>SnowflakeNet<small>ICCV 2021</small></th><th>SeedFormer<small>ECCV 2022</small></th><th>PoinTr<small>ICCV 2021</small></th><th>AdaPoinTr<small>TPAMI 2023</small></th><th>AnchorFormer<small>CVPR 2023</small></th><th>ESCAPE<small>CVPR 2025</small></th><th class="latest-col">ESCAPE-Reprod.<small>Latest baseline</small></th><th class="ours-col">PA-RangeLM<small>Ours</small></th></tr></thead>
+            <tbody>
+              <tr><th>Plane</th><td>70.49</td><td>16.39</td><td>63.81</td><td>65.34</td><td>66.15</td><td>8.60</td><td class="latest-col">8.98</td><td class="ours-col">7.58</td></tr>
+              <tr><th>Cabin</th><td>57.42</td><td>11.72</td><td>58.04</td><td>65.11</td><td>67.59</td><td>13.62</td><td class="latest-col">13.89</td><td class="ours-col">13.04</td></tr>
+              <tr><th>Car</th><td>56.23</td><td>11.40</td><td>54.14</td><td>56.17</td><td>60.81</td><td>10.43</td><td class="latest-col">10.77</td><td class="ours-col">10.07</td></tr>
+              <tr><th>Chair</th><td>59.31</td><td>13.02</td><td>60.07</td><td>63.73</td><td>67.88</td><td>10.71</td><td class="latest-col">11.15</td><td class="ours-col">10.36</td></tr>
+              <tr><th>Lamp</th><td>69.61</td><td>17.68</td><td>64.74</td><td>68.33</td><td>68.39</td><td>8.14</td><td class="latest-col">8.61</td><td class="ours-col">7.93</td></tr>
+              <tr><th>Sofa</th><td>63.22</td><td>15.35</td><td>61.70</td><td>66.69</td><td>70.06</td><td>13.86</td><td class="latest-col">14.45</td><td class="ours-col">13.90</td></tr>
+              <tr><th>Table</th><td>63.35</td><td>14.79</td><td>62.94</td><td>72.52</td><td>76.64</td><td>9.23</td><td class="latest-col">9.87</td><td class="ours-col">9.09</td></tr>
+              <tr><th>Boat</th><td>58.40</td><td>12.21</td><td>49.07</td><td>50.42</td><td>53.68</td><td>10.00</td><td class="latest-col">10.36</td><td class="ours-col">9.60</td></tr>
+            </tbody>
+            <tfoot><tr><th>Average</th><td>62.26</td><td>14.07</td><td>59.31</td><td>63.54</td><td>66.40</td><td>10.58</td><td class="latest-col">11.01</td><td class="ours-col">10.20</td></tr></tfoot>
+          </table></div>
+        </div>
+      </div>
+      <figure class="qualitative reveal"><div class="qualitative-copy"><p class="section-kicker">A closer look</p><h3>Sharper structure under severe pose changes.</h3><p>Range correction reduces scattered geometry while preserving the observed orientation. The comparison uses the same view, scale, point count, and color mapping.</p></div><img src="assets/visuals/qualitative.png" alt="Qualitative point-cloud completion example comparing partial input, baseline, PA-RangeLM, and ground truth."></figure>
+    </section>
+
+    <section class="resources" id="resources">
+      <div class="shell">
+        <div class="resources-heading reveal"><p class="section-kicker light">Anonymous release</p><h2>Reproduce the 10.20 result.</h2><p>The public package is stripped of identities, local paths, logs, third-party source trees, and tracking metadata.</p></div>
+        <div class="resource-grid">
+          <a class="resource-card reveal" href="assets/downloads/pa-rangelm-anonymous-code.zip" download><span class="resource-icon" aria-hidden="true">&lt;/&gt;</span><div><span>Source package</span><strong>Anonymous code</strong><small>Training, evaluation, configs · 129 KB</small></div><b aria-hidden="true">↓</b></a>
+          <button class="resource-card reveal checkpoint-trigger" type="button"><span class="resource-icon" aria-hidden="true">W</span><div><span>Stage-II checkpoint</span><strong>PCN rotated · 10.20</strong><small>Full FP32 weights · 148.5 MB</small></div><b aria-hidden="true">↓</b></button>
+          <a class="resource-card reveal" href="assets/downloads/CHECKSUMS.txt" download><span class="resource-icon" aria-hidden="true">#</span><div><span>Integrity</span><strong>SHA-256 checksums</strong><small>Verify every download locally</small></div><b aria-hidden="true">↓</b></a>
+        </div>
+        <div class="checkpoint-status" aria-live="polite" hidden><div><span id="checkpoint-message">Preparing checkpoint…</span><strong id="checkpoint-percent">0%</strong></div><progress id="checkpoint-progress" max="155741220" value="0">0%</progress><p>Keep this tab open while the four anonymous weight parts are combined locally in your browser.</p></div>
+      </div>
+    </section>
   </main>
+
+  <footer><div class="shell footer-grid"><div><strong>PA-RangeLM</strong><span>Rotation-robust geometric reconstruction</span></div><p>Anonymous project page · No analytics · No personal metadata</p><a href="#top">Back to top ↑</a></div></footer>
 </body>
 </html>

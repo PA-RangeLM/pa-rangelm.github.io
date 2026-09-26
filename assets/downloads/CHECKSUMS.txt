@@ -1,0 +1,10 @@
+PA-RangeLM anonymous release checksums (SHA-256)
+
+b72f5191ac599144ee5cff78ce87a88d49d549d61a0d90346c61cc3adf231d62  pa_rangelm_pcn_rotated_10p20.pth
+9257b617b71626f61b05c50d0459471e4dd031ab4aa35ec99371120294c00558  pa-rangelm-anonymous-code.zip
+
+Hosted checkpoint parts:
+d455f5118769c32850728edbedf9d2e94ccebddccb39664d6838ef047e567e68  pa-rangelm-pcn-10p20.part-00
+9d4ee084d4082ff89c286611caa8cf5773bf65b72f3a628585fc474dd644dd78  pa-rangelm-pcn-10p20.part-01
+763bccd553469150333bf838466319a081af1ddf60292161759585710fb20c3a  pa-rangelm-pcn-10p20.part-02
+a1e4d10f929734072536a5dc2eb4862e85d68a796b333e9864f63654fcd08f42  pa-rangelm-pcn-10p20.part-03

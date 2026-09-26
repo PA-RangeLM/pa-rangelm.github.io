@@ -1,3 +1,7 @@
-# PA-RangeLM
+# PA-RangeLM project page
 
-Anonymous project page for PA-RangeLM. Additional materials will be released soon.
+Anonymous project website for rotation-robust point cloud completion.
+
+The site uses no analytics, external fonts, author metadata, or third-party
+scripts. Code and checkpoint downloads are distributed from the same anonymous
+repository.
