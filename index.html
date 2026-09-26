@@ -74,7 +74,10 @@
     <section class="section architecture-section" id="architecture">
       <div class="shell">
         <div class="section-heading compact reveal"><p class="section-kicker">System design</p><h2>One backbone, two focused stages.</h2><p>Stage I learns a shape-aware range representation. Stage II freezes that representation and trains bounded correction, uncertainty weighting, and dense coordinate recovery.</p></div>
-        <figure class="architecture-figure reveal"><div class="figure-topline"><span>PA-RangeLM architecture</span><span>Training → deployment</span></div><img src="assets/visuals/architecture.png" alt="Two-stage PA-RangeLM architecture showing prototype-assisted distance learning followed by uncertainty-aware geometric refinement."><figcaption><span><b>Stage I</b> learns the shared encoder, decoder, and prototype-guided range representation.</span><span><b>Stage II</b> refines base ranges and recovers XYZ with uncertainty-weighted differentiable optimization.</span></figcaption></figure>
+        <div class="architecture-stack">
+          <figure class="architecture-figure reveal"><div class="figure-topline"><span>Figure 1 · Motivation and comparison</span><span>Rotation → completion</span></div><img decoding="async" src="assets/visuals/figure1.png" alt="Comparison of rotation-robust completion by the baseline and PA-RangeLM, followed by quantitative PCN results."><figcaption><span><b>Observed-frame completion.</b> PA-RangeLM combines prototype assistance with range-space recovery for rotated partial inputs.</span><span><b>Headline comparison.</b> The figure summarizes reconstruction error and per-sample runtime under the evaluated PCN protocol.</span></figcaption></figure>
+          <figure class="architecture-figure reveal"><div class="figure-topline"><span>Figure 2 · PA-RangeLM pipeline</span><span>Stage I → Stage II</span></div><img decoding="async" src="assets/visuals/figure2.png" alt="PA-RangeLM pipeline with the Prototype Auxiliary Branch in Stage I and RangeLM geometric recovery in Stage II."><figcaption><span><b>Stage I</b> learns the shared representation with the training-only Prototype Auxiliary Branch.</span><span><b>Stage II</b> applies bounded range correction, uncertainty-driven weighting, and differentiable coordinate recovery.</span></figcaption></figure>
+        </div>
       </div>
     </section>
 
