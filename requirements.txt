@@ -1,0 +1,17 @@
+torch==1.11.0
+numpy==1.24.4
+scipy
+easydict
+h5py
+matplotlib
+open3d
+opencv-python
+PyYAML
+timm==0.4.5
+tqdm
+transforms3d
+einops
+plotly
+scikit-learn
+wandb
+chamfer-distance
