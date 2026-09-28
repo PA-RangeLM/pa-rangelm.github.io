@@ -1,17 +1,26 @@
-const reveals = document.querySelectorAll('.reveal');
+const gif = document.querySelector('#qualitative-gif');
+const replay = document.querySelector('#replay-gif');
+
+if (gif && replay) {
+  replay.addEventListener('click', () => {
+    const source = gif.dataset.src;
+    replay.disabled = true;
+    gif.src = `${source}?replay=${Date.now()}`;
+    window.setTimeout(() => { replay.disabled = false; }, 700);
+  });
+}
+
+const navLinks = [...document.querySelectorAll('.site-nav a')];
+const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
 
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`));
     });
-  }, { threshold: 0.12 });
-  reveals.forEach((node) => observer.observe(node));
-} else {
-  reveals.forEach((node) => node.classList.add('is-visible'));
+  }, { rootMargin: '-25% 0px -65% 0px' });
+  sections.forEach((section) => observer.observe(section));
 }
 
 const checkpointParts = [
@@ -43,10 +52,7 @@ async function fetchPart(url, onChunk) {
   }
   const merged = new Uint8Array(length);
   let offset = 0;
-  chunks.forEach((chunk) => {
-    merged.set(chunk, offset);
-    offset += chunk.byteLength;
-  });
+  chunks.forEach((chunk) => { merged.set(chunk, offset); offset += chunk.byteLength; });
   return merged;
 }
 
@@ -80,7 +86,7 @@ async function downloadCheckpoint() {
     document.body.appendChild(link);
     link.click();
     link.remove();
-    setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
     message.textContent = 'Checkpoint ready — SHA-256 starts with b72f5191.';
     percent.textContent = '100%';
   } catch (error) {
@@ -91,6 +97,4 @@ async function downloadCheckpoint() {
   }
 }
 
-document.querySelectorAll('.checkpoint-trigger').forEach((button) => {
-  button.addEventListener('click', downloadCheckpoint);
-});
+document.querySelectorAll('.checkpoint-trigger').forEach((button) => button.addEventListener('click', downloadCheckpoint));
